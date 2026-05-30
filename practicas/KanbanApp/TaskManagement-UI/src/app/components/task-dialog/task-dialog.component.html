@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Crear nueva tarea</h2>
+
+<mat-dialog-content>
+  <form class="task-dialog-form" [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline">
+      <mat-label>Titulo</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        maxlength="80"
+        autocomplete="off">
+      <mat-hint align="end">{{ title.value?.length || 0 }}/80</mat-hint>
+      @if (title.hasError('required')) {
+        <mat-error>El titulo es obligatorio.</mat-error>
+      } @else if (title.hasError('whitespace')) {
+        <mat-error>El titulo no puede estar vacio.</mat-error>
+      } @else if (title.hasError('maxlength')) {
+        <mat-error>El titulo no puede exceder 80 caracteres.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descripcion</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        rows="4"
+        maxlength="240"></textarea>
+      <mat-hint align="end">{{ description.value?.length || 0 }}/240</mat-hint>
+      @if (description.hasError('maxlength')) {
+        <mat-error>La descripcion no puede exceder 240 caracteres.</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()" [disabled]="isSaving">Cancelar</button>
+  <button mat-flat-button color="primary" type="button" (click)="save()" [disabled]="form.invalid || isSaving">
+    @if (isSaving) {
+      <mat-spinner diameter="18"></mat-spinner>
+    } @else {
+      <mat-icon>add_task</mat-icon>
+    }
+    Agregar
+  </button>
+</mat-dialog-actions>

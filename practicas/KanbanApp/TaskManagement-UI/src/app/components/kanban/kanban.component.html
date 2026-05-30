@@ -1,0 +1,72 @@
+<div class="kanban-wrapper">
+  <h1 class="main-title">Tablero Kanban - Gestion de Tareas</h1>
+
+  <div class="board-actions">
+    <button mat-flat-button color="primary" type="button" (click)="openCreateTaskDialog()">
+      <mat-icon>add</mat-icon>
+      Agregar nueva tarea
+    </button>
+  </div>
+
+  <div class="kanban-container" cdkDropListGroup>
+    <div class="column">
+      <div class="column-header todo">
+        <mat-icon>assignment</mat-icon>
+        <h2>Pendientes</h2>
+      </div>
+
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="list-container"
+        (cdkDropListDropped)="drop($event)">
+        @for (item of todo; track item.id) {
+          <mat-card cdkDrag class="task-card">
+            <mat-card-header>
+              <mat-card-title>{{item.title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{item.description}}</p>
+            </mat-card-content>
+            <div class="card-footer">
+              <small>Creado: {{item.createdAt | date:'shortDate'}}</small>
+            </div>
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+          </mat-card>
+        } @empty {
+          <div class="empty-label">No hay tareas pendientes</div>
+        }
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="column-header done">
+        <mat-icon>check_circle</mat-icon>
+        <h2>Completadas</h2>
+      </div>
+
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[]"
+        class="list-container"
+        (cdkDropListDropped)="drop($event)">
+        @for (item of done; track item.id) {
+          <mat-card cdkDrag class="task-card completed">
+            <mat-card-header>
+              <mat-card-title>{{item.title}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{item.description}}</p>
+            </mat-card-content>
+          </mat-card>
+        } @empty {
+          <div class="empty-label">Arrastra aqui para completar</div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

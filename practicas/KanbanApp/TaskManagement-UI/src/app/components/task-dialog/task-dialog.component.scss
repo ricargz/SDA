@@ -1,0 +1,26 @@
+.task-dialog-form {
+  display: grid;
+  gap: 16px;
+  min-width: 420px;
+  padding-top: 4px;
+}
+
+mat-dialog-actions {
+  padding: 8px 24px 20px;
+
+  button {
+    min-width: 104px;
+  }
+
+  mat-icon,
+  mat-spinner {
+    margin-right: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .task-dialog-form {
+    min-width: 0;
+    width: 100%;
+  }
+}

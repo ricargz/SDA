@@ -1,0 +1,118 @@
+.kanban-wrapper {
+  padding: 30px;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+
+  .main-title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+}
+
+.kanban-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.board-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+
+  button {
+    min-height: 44px;
+    border-radius: 8px;
+  }
+
+  mat-icon {
+    margin-right: 6px;
+  }
+}
+
+.column {
+  width: 400px;
+  background: #ebedef;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+  .column-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+
+    h2 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+    &.todo { color: #3498db; }
+    &.done { color: #2ecc71; }
+  }
+}
+
+.list-container {
+  min-height: 500px;
+  display: block;
+}
+
+.task-card {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  cursor: grab;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:active { cursor: grabbing; }
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  }
+
+  &.completed {
+    border-left: 6px solid #2ecc71;
+    background-color: #f9fdfc;
+    opacity: 0.8;
+  }
+
+  mat-card-title { font-size: 1rem; color: #34495e; }
+  .card-footer { margin-top: 10px; text-align: right; color: #95a5a6; }
+}
+
+/* Clases de CDK para animaciones */
+.cdk-drag-preview {
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  border-radius: 8px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: #ccc;
+  border: 2px dashed #999;
+  margin-bottom: 15px;
+  height: 100px;
+  border-radius: 8px;
+}
+
+.empty-label {
+  text-align: center;
+  color: #bdc3c7;
+  margin-top: 50px;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .kanban-wrapper {
+    padding: 20px;
+  }
+
+  .kanban-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .column {
+    width: auto;
+  }
+}
