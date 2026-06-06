@@ -14,6 +14,10 @@ namespace VulnerableApp.Controllers
         [HttpGet("user/{id}")]
         public IActionResult GetUser(int id)
         {
+            var currentUserId = HttpContext.Session.GetInt32("UserId");
+            if (!currentUserId.HasValue) return Unauthorized();
+            if (id != currentUserId.Value) return StatusCode(StatusCodes.Status403Forbidden);
+
             var user = _db.Users.Find(id);
             if (user == null) return NotFound();
 
@@ -21,16 +25,20 @@ namespace VulnerableApp.Controllers
             {
                 user.Id,
                 user.Username,
-                user.Email,
-                user.Balance,
-                user.Password
+                user.Email
             });
         }
 
         [HttpGet("users")]
         public IActionResult GetAllUsers()
         {
-            var users = _db.Users.ToList();
+            var currentUserId = HttpContext.Session.GetInt32("UserId");
+            if (!currentUserId.HasValue) return Unauthorized();
+
+            var users = _db.Users
+                .Select(user => new { user.Id, user.Username, user.Email })
+                .ToList();
+
             return Ok(users);
         }
     }
