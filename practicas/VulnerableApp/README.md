@@ -25,14 +25,14 @@ dotnet build
 ## Ejecucion segura
 
 ```powershell
-dotnet run --urls http://localhost:5087
+dotnet run --launch-profile https
 ```
 
 Abrir en el navegador:
 
-- `http://localhost:5087/Auth/Login`
-- `http://localhost:5087/Search/Index`
-- `http://localhost:5087/Comment/Index`
+- `https://localhost:7243/Auth/Login`
+- `https://localhost:7243/Search/Index`
+- `https://localhost:7243/Comment/Index`
 
 ## Credenciales seguras de prueba
 

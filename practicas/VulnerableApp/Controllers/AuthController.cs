@@ -15,12 +15,20 @@ namespace VulnerableApp.Controllers
         public IActionResult Login() => View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(string username, string password)
         {
-            var user = _db.Users.FirstOrDefault(u => u.Username == username);
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                ViewBag.Error = "Credenciales invalidas";
+                return View();
+            }
+
+            var normalizedUsername = username.Trim();
+            var user = _db.Users.FirstOrDefault(u => u.Username == normalizedUsername);
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
-                ViewBag.Error = "Credenciales inv\u00e1lidas";
+                ViewBag.Error = "Credenciales invalidas";
                 return View();
             }
 

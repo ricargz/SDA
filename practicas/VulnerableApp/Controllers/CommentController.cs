@@ -1,23 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
+using VulnerableApp.Services;
 
 namespace VulnerableApp.Controllers
 {
     public class CommentController : Controller
     {
-        private static List<string> _comments = new();
+        private readonly ICommentStore _commentStore;
+
+        public CommentController(ICommentStore commentStore)
+        {
+            _commentStore = commentStore;
+        }
 
         public IActionResult Index()
         {
-            return View(_comments);
+            return View(_commentStore.GetAll());
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddComment(string comment)
         {
-            if (!string.IsNullOrEmpty(comment))
+            if (!string.IsNullOrWhiteSpace(comment))
             {
-                _comments.Add(comment);
+                _commentStore.Add(comment);
             }
+
             return RedirectToAction("Index");
         }
     }

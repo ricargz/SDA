@@ -15,13 +15,14 @@ namespace VulnerableApp.Controllers
 
         public IActionResult Index(string search)
         {
-            if (string.IsNullOrEmpty(search))
+            if (string.IsNullOrWhiteSpace(search))
             {
                 return View(new List<User>());
             }
 
+            var normalizedSearch = search.Trim();
             var users = _db.Users
-                .Where(u => u.Username.Contains(search))
+                .Where(u => u.Username.Contains(normalizedSearch))
                 .ToList();
 
             return View(users);

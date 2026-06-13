@@ -9,17 +9,30 @@ namespace VulnerableApp.Controllers
     {
         private readonly AppDbContext _db;
 
-        public ApiController(AppDbContext db) { _db = db; }
+        public ApiController(AppDbContext db)
+        {
+            _db = db;
+        }
 
         [HttpGet("user/{id}")]
         public IActionResult GetUser(int id)
         {
             var currentUserId = HttpContext.Session.GetInt32("UserId");
-            if (!currentUserId.HasValue) return Unauthorized();
-            if (id != currentUserId.Value) return StatusCode(StatusCodes.Status403Forbidden);
+            if (!currentUserId.HasValue)
+            {
+                return Unauthorized();
+            }
+
+            if (id != currentUserId.Value)
+            {
+                return Forbid();
+            }
 
             var user = _db.Users.Find(id);
-            if (user == null) return NotFound();
+            if (user == null)
+            {
+                return NotFound();
+            }
 
             return Ok(new
             {
@@ -33,7 +46,10 @@ namespace VulnerableApp.Controllers
         public IActionResult GetAllUsers()
         {
             var currentUserId = HttpContext.Session.GetInt32("UserId");
-            if (!currentUserId.HasValue) return Unauthorized();
+            if (!currentUserId.HasValue)
+            {
+                return Unauthorized();
+            }
 
             var users = _db.Users
                 .Select(user => new { user.Id, user.Username, user.Email })
