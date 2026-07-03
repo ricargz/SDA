@@ -6,3 +6,5 @@
 *.tmp
 ~$*.docx
 **/.sonarqube/
+VulnerableApp/Logs/*.txt
+.artifacts/

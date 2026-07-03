@@ -4,28 +4,32 @@ using VulnerableApp.Models;
 
 namespace VulnerableApp.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : InstrumentedController<SearchController>
     {
         private readonly AppDbContext _db;
 
-        public SearchController(AppDbContext db)
+        public SearchController(AppDbContext db, ILogger<SearchController> logger) : base(logger)
         {
             _db = db;
         }
 
         public IActionResult Index(string search)
         {
-            if (string.IsNullOrWhiteSpace(search))
+            return ExecuteLogged(nameof(Index), new { Search = search }, () =>
             {
-                return View(new List<User>());
-            }
+                if (string.IsNullOrWhiteSpace(search))
+                {
+                    Logger.LogWarning("Busqueda vacia o sin criterio");
+                    return View(new List<User>());
+                }
 
-            var normalizedSearch = search.Trim();
-            var users = _db.Users
-                .Where(u => u.Username.Contains(normalizedSearch))
-                .ToList();
+                var normalizedSearch = search.Trim();
+                var users = _db.Users
+                    .Where(u => u.Username.Contains(normalizedSearch))
+                    .ToList();
 
-            return View(users);
+                return View(users);
+            });
         }
     }
 }
