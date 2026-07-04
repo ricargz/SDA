@@ -14,18 +14,23 @@ namespace VulnerableApp.Tests;
 public sealed class ControllerInstrumentationTests
 {
     [Fact]
-    public void HomeController_LogsEveryActionAndWarning()
+    public void HomeController_LogsEveryActionAndExceptionScenario()
     {
         var logger = new CapturingLogger<HomeController>();
         var controller = AttachHttpContext(new HomeController(logger));
 
         controller.Index();
         controller.Privacy();
+        Assert.IsType<UnprocessableEntityObjectResult>(controller.ControlledException());
+        Assert.Throws<InvalidOperationException>(() => controller.UnhandledException());
         controller.Error();
 
         AssertActionLifecycle(logger, "Index");
         AssertActionLifecycle(logger, "Privacy");
+        AssertActionLifecycle(logger, "ControlledException");
+        AssertActionLifecycle(logger, "UnhandledException");
         AssertActionLifecycle(logger, "Error");
+        Assert.Contains(logger.Entries, entry => entry.Level == LogLevel.Warning);
         Assert.Contains(logger.Entries, entry => entry.Level == LogLevel.Error);
     }
 
@@ -109,7 +114,8 @@ public sealed class ControllerInstrumentationTests
         Assert.IsType<UnauthorizedResult>(controller.GetUser(1));
         controller.HttpContext.Session.SetInt32("UserId", 1);
         Assert.IsType<OkObjectResult>(controller.GetUser(1));
-        Assert.IsType<ForbidResult>(controller.GetUser(2));
+        var forbidden = Assert.IsType<StatusCodeResult>(controller.GetUser(2));
+        Assert.Equal(StatusCodes.Status403Forbidden, forbidden.StatusCode);
         Assert.IsType<OkObjectResult>(controller.GetAllUsers());
 
         AssertActionLifecycle(logger, "GetUser");

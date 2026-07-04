@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using VulnerableApp.Data;
+using VulnerableApp.Middleware;
 using VulnerableApp.Services;
 
 Log.Logger = new LoggerConfiguration()
@@ -36,24 +37,17 @@ try
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
     {
-        app.UseExceptionHandler("/Home/Error");
         app.UseHsts();
     }
+
+    app.UseMiddleware<CorrelationIdMiddleware>();
+    app.UseMiddleware<RequestLoggingMiddleware>();
+    app.UseMiddleware<ExceptionLoggingMiddleware>();
 
     app.UseHttpsRedirection();
     app.UseRouting();
 
     app.UseSession();
-    app.UseSerilogRequestLogging(options =>
-    {
-        options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
-        {
-            diagnosticContext.Set("ClientIP",
-                httpContext.Connection.RemoteIpAddress?.ToString() ?? "desconocida");
-            diagnosticContext.Set("RequestUser",
-                httpContext.Session.GetString("User") ?? "Anonimo");
-        };
-    });
     app.UseAuthorization();
 
     app.MapStaticAssets();

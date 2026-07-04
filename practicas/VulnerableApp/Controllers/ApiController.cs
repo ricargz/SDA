@@ -34,7 +34,7 @@ namespace VulnerableApp.Controllers
                         "Acceso denegado: usuario {CurrentUserId} intento consultar a {RequestedUserId}",
                         currentUserId.Value,
                         id);
-                    return Forbid();
+                    return StatusCode(StatusCodes.Status403Forbidden);
                 }
 
                 var user = _db.Users.Find(id);
