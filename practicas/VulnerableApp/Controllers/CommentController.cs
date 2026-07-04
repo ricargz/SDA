@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using VulnerableApp.Security;
 using VulnerableApp.Services;
 
 namespace VulnerableApp.Controllers
@@ -35,6 +36,13 @@ namespace VulnerableApp.Controllers
                     }
                     else
                     {
+                        if (SecurityPatternDetector.LooksLikeXss(comment))
+                        {
+                            Logger.LogWarning(
+                                "Posible intento de XSS detectado | Longitud: {CommentLength}",
+                                comment.Length);
+                        }
+
                         _commentStore.Add(comment);
                         Logger.LogInformation(
                             "Comentario almacenado con longitud {CommentLength}",

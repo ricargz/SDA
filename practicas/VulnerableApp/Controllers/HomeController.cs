@@ -20,6 +20,38 @@ public class HomeController : InstrumentedController<HomeController>
         return ExecuteLogged(nameof(Privacy), safeParameters: null, View);
     }
 
+    [HttpGet]
+    public IActionResult ControlledException()
+    {
+        return ExecuteLogged(nameof(ControlledException), safeParameters: null, () =>
+        {
+            try
+            {
+                throw new InvalidOperationException(
+                    "Excepcion controlada generada para la practica P3G.");
+            }
+            catch (InvalidOperationException exception)
+            {
+                Logger.LogWarning(
+                    exception,
+                    "Excepcion controlada atendida por HomeController");
+                return UnprocessableEntity(new
+                {
+                    message = "Excepcion controlada",
+                    correlationId = HttpContext.TraceIdentifier
+                });
+            }
+        });
+    }
+
+    [HttpGet]
+    public IActionResult UnhandledException()
+    {
+        return ExecuteLogged(nameof(UnhandledException), safeParameters: null, () =>
+            throw new InvalidOperationException(
+                "Excepcion no controlada generada para validar el middleware global."));
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

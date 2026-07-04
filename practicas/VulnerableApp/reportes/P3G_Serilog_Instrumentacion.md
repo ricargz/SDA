@@ -41,11 +41,11 @@ una solicitud.
 3. Registra excepciones con `LogError` y conserva el objeto `Exception`.
 4. Registra la salida en `finally`, incluido el resultado y `DuracionMs`.
 
-Se instrumentaron 12 acciones:
+Se instrumentaron 14 acciones:
 
 | Controlador | Acciones |
 | --- | --- |
-| HomeController | `Index`, `Privacy`, `Error` |
+| HomeController | `Index`, `Privacy`, `ControlledException`, `UnhandledException`, `Error` |
 | SearchController | `Index` |
 | AuthController | `Login` GET/POST, `Dashboard`, `Logout` |
 | CommentController | `Index`, `AddComment` |
@@ -67,12 +67,12 @@ dotnet test VulnerableApp.Tests\VulnerableApp.Tests.csproj `
 Resultado final:
 
 ```text
-Superado: 6
+Superado: 17
 Con error: 0
 Omitido: 0
 ```
 
-Las pruebas recorren las 12 acciones y validan:
+Las pruebas recorren las 14 acciones y validan:
 
 - eventos de entrada y salida en nivel `Information`;
 - presencia de `DuracionMs`;
@@ -122,11 +122,9 @@ SourceContext = 'VulnerableApp.Controllers.NombreController'
 1. Los eventos estructurados permiten separar `User`, `IP`, `Parameters`,
    `Outcome` y `ElapsedMs` en Seq, en lugar de almacenar una sola cadena.
 2. Se generaron y observaron eventos Information, Warning y Error.
-3. Al ejecutar `ApiController.GetUser(2)`, la accion devolvio `ForbidResult`,
-   pero ASP.NET Core produjo HTTP 500 porque la aplicacion no tiene configurado
-   un esquema de autenticacion capaz de procesar `Forbid`. Seq capturo la
-   excepcion. Es un hallazgo funcional independiente de la instrumentacion y
-   debe corregirse al implementar autenticacion formal.
+3. El hallazgo inicial de `ApiController.GetUser(2)` fue corregido: la accion
+   devuelve explicitamente HTTP 403 y ya no depende de un esquema de
+   autenticacion para procesar `ForbidResult`.
 4. El `docker run` de la guia ya no es suficiente para la imagen actual de Seq:
    el primer inicio exige una contrasena administrativa o
    `SEQ_FIRSTRUN_NOAUTHENTICATION=true`. Para esta practica local se eligio la
@@ -140,7 +138,7 @@ SourceContext = 'VulnerableApp.Controllers.NombreController'
 - [x] Carpeta `Logs` creada.
 - [x] Seq levantado y conectividad validada.
 - [x] Enriquecedor adicional agregado y justificado.
-- [x] Cinco controladores y 12 acciones instrumentados.
+- [x] Cinco controladores y 14 acciones instrumentados.
 - [x] Usuario, IP, parametros seguros y tiempos registrados.
 - [x] Warnings, errores, autenticacion y excepciones validados.
 - [x] Contrasenas ausentes de los logs.

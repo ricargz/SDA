@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using VulnerableApp.Data;
+using VulnerableApp.Security;
 
 namespace VulnerableApp.Controllers
 {
@@ -23,9 +24,10 @@ namespace VulnerableApp.Controllers
         {
             // La contrasena se usa para validar credenciales, pero nunca forma parte
             // de los parametros seguros enviados al sistema de logging.
-            return ExecuteLogged(nameof(Login), new { Username = username }, () =>
+            var safeUsername = SecurityPatternDetector.SanitizeForLog(username);
+            return ExecuteLogged(nameof(Login), new { Username = safeUsername }, () =>
             {
-                Logger.LogInformation("Intento de autenticacion para {Username}", username);
+                Logger.LogInformation("Intento de autenticacion para {Username}", safeUsername);
 
                 if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
