@@ -1,0 +1,156 @@
+{
+  "uid": "vulnerableapp-promtail-enrichment",
+  "title": "VulnerableApp Promtail Enrichment",
+  "tags": [
+    "VulnerableApp",
+    "Promtail",
+    "Loki",
+    "SEGG-U2-P4H-2"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "logs",
+      "title": "Application logs - environment=dev",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\", log_type=\"Application\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "Security labels - SQL Injection/XSS",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\", log_type=\"Security\", module=\"security\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "Authentication module - module=authentication",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\", log_type=\"Audit\", module=\"authentication\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 4,
+      "type": "logs",
+      "title": "Orders module label - module=orders",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\", module=\"orders\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    }
+  ]
+}
