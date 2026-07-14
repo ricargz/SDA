@@ -1,0 +1,121 @@
+{
+  "uid": "vulnerableapp-observability",
+  "title": "VulnerableApp Observability",
+  "tags": [
+    "VulnerableApp",
+    "Loki",
+    "Promtail",
+    "SEGG-U2-P4H"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "logs",
+      "title": "VulnerableApp - todos los registros",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{job=\"vulnerableapp\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "Security - SQL Injection y XSS",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{job=\"vulnerableapp\", log_type=\"Security\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "Audit - autenticación",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{job=\"vulnerableapp\", log_type=\"Audit\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+﻿name: seq-infra
+services:
+  grafana:
+    container_name: vulnerableapp-grafana
+    depends_on:
+      loki:
+        condition: service_started
+        required: true
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: admin
+    image: grafana/grafana-enterprise:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "3000"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: grafana_data
+        target: /var/lib/grafana
+        volume: {}
+      - type: bind
+        source: C:\Projects\cuatrimestre8\sdapps\SDA\practicas\seq-infra\grafana\provisioning
+        target: /etc/grafana/provisioning
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Projects\cuatrimestre8\sdapps\SDA\practicas\seq-infra\grafana\dashboards
+        target: /var/lib/grafana/dashboards
+        read_only: true
+        bind: {}
+  loki:
+    command:
+      - -config.file=/etc/loki/local-config.yaml
+    container_name: vulnerableapp-loki
+    image: grafana/loki:3.5.1
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3100
+        published: "3100"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: C:\Projects\cuatrimestre8\sdapps\SDA\practicas\seq-infra\loki\local-config.yaml
+        target: /etc/loki/local-config.yaml
+        read_only: true
+        bind: {}
+      - type: volume
+        source: loki_data
+        target: /loki
+        volume: {}
+  promtail:
+    command:
+      - -config.file=/etc/promtail/config.yml
+    container_name: vulnerableapp-promtail
+    depends_on:
+      loki:
+        condition: service_started
+        required: true
+    image: grafana/promtail:3.5.1
+    networks:
+      default: null
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: C:\Projects\cuatrimestre8\sdapps\SDA\practicas\seq-infra\promtail\config.yml
+        target: /etc/promtail/config.yml
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Projects\cuatrimestre8\sdapps\SDA\practicas\VulnerableApp\Logs
+        target: /var/log/vulnerableapp
+        read_only: true
+        bind: {}
+      - type: volume
+        source: promtail_positions
+        target: /tmp/positions
+        volume: {}
+  seq:
+    container_name: vulnerableapp-seq
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_NOAUTHENTICATION: "true"
+    image: datalust/seq:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5341"
+        protocol: tcp
+      - mode: ingress
+        target: 80
+        published: "8081"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: seq_data
+        target: /data
+        volume: {}
+networks:
+  default:
+    name: seq-infra_default
+volumes:
+  grafana_data:
+    name: seq-infra_grafana_data
+  loki_data:
+    name: seq-infra_loki_data
+  promtail_positions:
+    name: seq-infra_promtail_positions
+  seq_data:
+    name: seq-infra_seq_data
