@@ -1,8 +1,8 @@
 ﻿{
-    "TestRunId":  "P3G-20260713-193232",
+    "TestRunId":  "P3G-20260713-195444",
     "Window":  {
-                   "StartedAt":  "2026-07-13T19:32:32.9131355-06:00",
-                   "FinishedAt":  "2026-07-13T19:33:54.8407448-06:00",
+                   "StartedAt":  "2026-07-13T19:54:44.5457207-06:00",
+                   "FinishedAt":  "2026-07-13T19:55:59.7383766-06:00",
                    "ParsedLogLines":  3730
                },
     "Levels":  {
@@ -28,12 +28,12 @@
     "ControlledExceptions":  20,
     "UnhandledExceptions":  10,
     "DistinctCorrelationIds":  1063,
-    "SampleCorrelationId":  "78eb62486bc249c2bd748f259ecf5139",
+    "SampleCorrelationId":  "115f80d669074aafb3cac5b82401f8ea",
     "CorrelationIdLocated":  true,
     "SlowestRequest":  {
                            "Endpoint":  "GET /Search",
                            "StatusCode":  200,
-                           "DurationMs":  5729,
-                           "LogLine":  "2026-07-13 19:32:39.637 -06:00 [INF] [0e3432d761e140d3acc6def932e381df] VulnerableApp.Middleware.RequestLoggingMiddleware HTTP GET /Search respondio 200 en 5729 ms | Usuario: Anonimo | IP: ::1 | CorrelationId: 0e3432d761e140d3acc6def932e381df"
+                           "DurationMs":  1702,
+                           "LogLine":  "2026-07-13 19:54:47.195 -06:00 [INF] [13e7136e4908467099626fa065fa2bb2] VulnerableApp.Middleware.RequestLoggingMiddleware HTTP GET /Search respondio 200 en 1702 ms | Usuario: Anonimo | IP: ::1 | CorrelationId: 13e7136e4908467099626fa065fa2bb2"
                        }
 }

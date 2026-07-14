@@ -1,0 +1,69 @@
+﻿docker : level=info ts=2026-07-14T01:28:51.77024711Z caller=promtail.go:135 msg="Reloading configuration file" 
+sha3sum=892c0426e6d24601f7a4430de6a131fe2d6542e37fb8d12e1f2d5c43991b2a79
+En línea: 2 Carácter: 1
++ docker logs vulnerableapp-promtail --tail 120 2>&1 | Out-File -FilePa ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (level=info ts=2...f2d5c43991b2a79:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+level=info ts=2026-07-14T01:28:51.779663118Z caller=server.go:368 msg="server listening on addresses" http=[::]:9080 
+grpc=[::]:39485
+level=info ts=2026-07-14T01:28:51.779942257Z caller=main.go:173 msg="Starting Promtail" version="(version=3.5.1, 
+branch=release-3.5.x, revision=d4e637ce)"
+level=warn ts=2026-07-14T01:28:51.780159978Z caller=promtail.go:265 msg="enable watchConfig"
+level=info ts=2026-07-14T01:28:56.772451201Z caller=filetargetmanager.go:373 msg="Adding target" 
+key="/var/log/vulnerableapp/log-*.txt:{application=\"VulnerableApp\", environment=\"Development\", 
+host=\"windows-local\", job=\"vulnerableapp\", log_source=\"serilog_file\", log_type=\"VulnerableApp\"}"
+level=info ts=2026-07-14T01:28:56.816423396Z caller=filetarget.go:343 msg="watching new directory" 
+directory=/var/log/vulnerableapp
+level=info ts=2026-07-14T01:28:56.827756843Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260702.txt
+ts=2026-07-14T01:28:56.828880908Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260702.txt - 
+&{Offset:0 Whence:0}"
+ts=2026-07-14T01:28:56.837006348Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260703.txt - 
+&{Offset:0 Whence:0}"
+level=info ts=2026-07-14T01:28:56.837433554Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260703.txt
+ts=2026-07-14T01:28:56.837707507Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260706.txt - 
+&{Offset:0 Whence:0}"
+level=info ts=2026-07-14T01:28:56.847900516Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260706.txt
+level=info ts=2026-07-14T01:32:26.910529288Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260713.txt
+ts=2026-07-14T01:32:26.910698872Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260713.txt - 
+&{Offset:0 Whence:0}"
+level=info ts=2026-07-14T01:54:09.124768419Z caller=promtail.go:135 msg="Reloading configuration file" 
+sha3sum=cf81716fdcd3f48fa2ed8595a8ff1abcf6dd8b9f5e337cfd37eeba96ed7b346d
+level=info ts=2026-07-14T01:54:09.145538409Z caller=server.go:368 msg="server listening on addresses" http=[::]:9080 
+grpc=[::]:33051
+level=info ts=2026-07-14T01:54:09.147271147Z caller=main.go:173 msg="Starting Promtail" version="(version=3.5.1, 
+branch=release-3.5.x, revision=d4e637ce)"
+level=warn ts=2026-07-14T01:54:09.147876007Z caller=promtail.go:265 msg="enable watchConfig"
+level=info ts=2026-07-14T01:54:14.134424687Z caller=filetargetmanager.go:373 msg="Adding target" 
+key="/var/log/vulnerableapp/security-*.txt:{application=\"VulnerableApp\", environment=\"dev\", 
+host=\"windows-local\", job=\"vulnerableapp\", log_source=\"serilog_security_file\", log_type=\"Security\", 
+module=\"security\"}"
+level=info ts=2026-07-14T01:54:14.134851407Z caller=filetargetmanager.go:373 msg="Adding target" 
+key="/var/log/vulnerableapp/audit-*.txt:{application=\"VulnerableApp\", environment=\"dev\", host=\"windows-local\", 
+job=\"vulnerableapp\", log_source=\"serilog_audit_file\", log_type=\"Audit\", module=\"authentication\"}"
+level=info ts=2026-07-14T01:54:14.134873147Z caller=filetargetmanager.go:373 msg="Adding target" 
+key="/var/log/vulnerableapp/log-*.txt:{application=\"VulnerableApp\", environment=\"dev\", host=\"windows-local\", 
+job=\"vulnerableapp\", log_source=\"serilog_file\", log_type=\"Application\", module=\"application\"}"
+level=info ts=2026-07-14T01:54:14.143333019Z caller=filetarget.go:343 msg="watching new directory" 
+directory=/var/log/vulnerableapp
+level=info ts=2026-07-14T01:54:14.148771369Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260702.txt
+ts=2026-07-14T01:54:14.148750567Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260702.txt - 
+&{Offset:35064 Whence:0}"
+ts=2026-07-14T01:54:14.155929118Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260703.txt - 
+&{Offset:1595312 Whence:0}"
+level=info ts=2026-07-14T01:54:14.155935232Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260703.txt
+level=info ts=2026-07-14T01:54:14.163210099Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260706.txt
+ts=2026-07-14T01:54:14.163235105Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260706.txt - 
+&{Offset:34715 Whence:0}"
+ts=2026-07-14T01:54:14.168525085Z caller=log.go:168 level=info msg="Seeked /var/log/vulnerableapp/log-20260713.txt - 
+&{Offset:800836 Whence:0}"
+level=info ts=2026-07-14T01:54:14.168572254Z caller=tailer.go:147 component=tailer msg="tail routine: started" 
+path=/var/log/vulnerableapp/log-20260713.txt
