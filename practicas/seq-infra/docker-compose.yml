@@ -12,5 +12,49 @@ services:
     volumes:
       - seq_data:/data
 
+  loki:
+    image: grafana/loki:3.5.1
+    container_name: vulnerableapp-loki
+    restart: unless-stopped
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/local-config.yaml:/etc/loki/local-config.yaml:ro
+      - loki_data:/loki
+
+  promtail:
+    image: grafana/promtail:3.5.1
+    container_name: vulnerableapp-promtail
+    restart: unless-stopped
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
+    volumes:
+      - ./promtail/config.yml:/etc/promtail/config.yml:ro
+      - ../VulnerableApp/Logs:/var/log/vulnerableapp:ro
+      - promtail_positions:/tmp/positions
+
+  grafana:
+    image: grafana/grafana-enterprise:latest
+    container_name: vulnerableapp-grafana
+    restart: unless-stopped
+    depends_on:
+      - loki
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+
 volumes:
   seq_data:
+  loki_data:
+  promtail_positions:
+  grafana_data:

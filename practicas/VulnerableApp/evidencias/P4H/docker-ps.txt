@@ -1,0 +1,5 @@
+﻿NAMES                    IMAGE                               STATUS          PORTS
+vulnerableapp-grafana    grafana/grafana-enterprise:latest   Up 38 seconds   0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp
+vulnerableapp-promtail   grafana/promtail:3.5.1              Up 8 minutes    
+vulnerableapp-loki       grafana/loki:3.5.1                  Up 8 minutes    0.0.0.0:3100->3100/tcp, [::]:3100->3100/tcp
+vulnerableapp-seq        datalust/seq:latest                 Up 10 minutes   0.0.0.0:5341->80/tcp, 0.0.0.0:8081->80/tcp, [::]:5341->80/tcp, [::]:8081->80/tcp

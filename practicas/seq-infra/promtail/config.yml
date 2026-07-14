@@ -1,0 +1,39 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: vulnerableapp-file-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: vulnerableapp
+          application: VulnerableApp
+          environment: Development
+          host: windows-local
+          log_source: serilog_file
+          log_type: VulnerableApp
+          __path__: /var/log/vulnerableapp/log-*.txt
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\.\d{3}\s+[+-]\d{2}:\d{2})\s+\[(?P<level>[A-Z]{3})\]\s+\[(?P<correlation_id>[^\]]*)\]\s+(?P<source_context>\S+)\s+(?P<message>.*)$'
+      - labels:
+          level:
+          source_context:
+      - match:
+          selector: '{job="vulnerableapp"} |~ "(SQL Injection|XSS|sospechoso|SecurityPatternDetector)"'
+          stages:
+            - static_labels:
+                log_type: Security
+      - match:
+          selector: '{job="vulnerableapp"} !~ "(SQL Injection|XSS|sospechoso|SecurityPatternDetector)" |~ "(AuthController|Login|Autenticacion|autenticacion|autenticaciones|Authentication)"'
+          stages:
+            - static_labels:
+                log_type: Audit
