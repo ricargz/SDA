@@ -1,0 +1,156 @@
+{
+  "uid": "vulnerableapp-logql-security",
+  "title": "VulnerableApp LogQL Security Monitoring",
+  "tags": [
+    "VulnerableApp",
+    "LogQL",
+    "Security",
+    "SEGG-U2-P4H-3"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 41,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "logs",
+      "title": "Errores - level=ERR",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\", level=\"ERR\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 2,
+      "type": "logs",
+      "title": "Autenticaciones fallidas",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\", module=\"authentication\"} |= \"Autenticacion fallida\"",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 3,
+      "type": "logs",
+      "title": "Auditoría - module=authentication",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\", log_type=\"Audit\", module=\"authentication\"}",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    },
+    {
+      "id": 4,
+      "type": "logs",
+      "title": "Errores críticos y excepciones",
+      "datasource": {
+        "type": "loki",
+        "uid": "vulnerableapp-loki"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{application=\"VulnerableApp\", environment=\"dev\"} |~ \"(ERR|Exception|excepcion|InvalidOperationException|500)\"",
+          "datasource": {
+            "type": "loki",
+            "uid": "vulnerableapp-loki"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      }
+    }
+  ]
+}

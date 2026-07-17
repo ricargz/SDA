@@ -1,0 +1,25 @@
+﻿{
+    "GeneratedAt":  "2026-07-16T20:22:15.8583224-06:00",
+    "FirstErrorTime":  "2026-07-16 20:20:51 -06:00",
+    "ErrorModule":  "application / HomeController.UnhandledException / ExceptionLoggingMiddleware",
+    "AuthenticationModule":  "authentication / AuthController.Login",
+    "UsersInvolved":  [
+                          "intruso1",
+                          "intruso10",
+                          "intruso2",
+                          "intruso3",
+                          "intruso4",
+                          "intruso5",
+                          "intruso6",
+                          "intruso7",
+                          "intruso8",
+                          "intruso9"
+                      ],
+    "ExceptionObserved":  "InvalidOperationException en HomeController.UnhandledException; registrada por ExceptionLoggingMiddleware como excepcion no controlada GET /Home/UnhandledException",
+    "EvidenceQueries":  [
+                            "04-query-errors.json",
+                            "06-query-auth-failed.json",
+                            "08-query-critical-exceptions.json"
+                        ],
+    "ErrorSample":  "2026-07-16 20:20:51.144 -06:00 [ERR] [b09593a1e5d741ad8802c94d8cc846f7] VulnerableApp.Controllers.HomeController Error en HomeController.UnhandledException | Usuario: Anonimo | IP: ::1 | DuracionMs: 5\r"
+}
