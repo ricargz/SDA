@@ -1,0 +1,96 @@
+name: Security
+
+on:
+  push:
+    branches:
+      - secure
+      - main
+      - master
+  pull_request:
+
+jobs:
+  build-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore VulnerableApp.Tests/VulnerableApp.Tests.csproj
+
+      - name: Test
+        run: dotnet test VulnerableApp.Tests/VulnerableApp.Tests.csproj --no-restore --nologo --verbosity minimal
+
+  dast-zap:
+    name: DAST - OWASP ZAP
+    runs-on: ubuntu-latest
+    needs: build-test
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_SA_PASSWORD: "DAST_Passw0rd!2026"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "bash -c '</dev/tcp/127.0.0.1/1433'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore and build app
+        run: |
+          dotnet restore VulnerableApp/VulnerableApp.csproj
+          dotnet build VulnerableApp/VulnerableApp.csproj --no-restore --configuration Release
+
+      - name: Run app in background
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          ASPNETCORE_URLS: http://localhost:5088
+          AllowedHosts: "*"
+          DAST_AUTO_MIGRATE: "true"
+          ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=VulnerableDb;User Id=sa;Password=DAST_Passw0rd!2026;Encrypt=True;TrustServerCertificate=True;"
+        run: |
+          dotnet run --project VulnerableApp/VulnerableApp.csproj --no-build --configuration Release &
+          for i in {1..30}; do
+            if curl -fsS http://localhost:5088/ > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
+
+      - name: ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: "http://localhost:5088"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-I"
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zap-baseline-report
+          path: |
+            report_html.html
+            report_json.json
+            report_md.md

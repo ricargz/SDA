@@ -1,0 +1,65 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Thu, 23 Jul 2026 21:14:58 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Correlation-ID: 512585ab72c946fb9f4757d1837dc8fa
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page - VulnerableApp</title>
+    
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=j6fhJSuuyLpOSLuPJU0TsDV0iNjor5S3rDnvxJrt4bg" />
+    <link rel="stylesheet" href="/VulnerableApp.styles.css?v=4QkjMmxAaFyeQcewIbVJEwpyHAw-hF-qNDmRNLhI4lA" />
+</head>
+<body>
+    <header b-ljc94unax0>
+        <nav b-ljc94unax0 class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div b-ljc94unax0 class="container-fluid">
+                <a class="navbar-brand" href="/">VulnerableApp</a>
+                <button b-ljc94unax0 class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span b-ljc94unax0 class="navbar-toggler-icon"></span>
+                </button>
+                <div b-ljc94unax0 class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul b-ljc94unax0 class="navbar-nav flex-grow-1">
+                        <li b-ljc94unax0 class="nav-item">
+                            <a class="nav-link text-dark" href="/">Home</a>
+                        </li>
+                        <li b-ljc94unax0 class="nav-item">
+                            <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div b-ljc94unax0 class="container">
+        <main b-ljc94unax0 role="main" class="pb-3">
+            
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+        </main>
+    </div>
+
+    <footer b-ljc94unax0 class="border-top footer text-muted">
+        <div b-ljc94unax0 class="container">
+            &copy; 2026 - VulnerableApp - <a href="/Home/Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo"></script>
+    
+</body>
+</html>

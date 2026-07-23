@@ -1,0 +1,4 @@
+NAME                   IMAGE                                        COMMAND                  SERVICE          CREATED          STATUS                             PORTS
+vulnerable_app         practicas-vulnerable_app                     "dotnet VulnerableAp…"   vulnerable_app   36 seconds ago   Up 32 seconds                      8080/tcp
+vulnerable_sqlserver   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/laun…"   sqlserver        2 minutes ago    Up 2 minutes (healthy)             1433/tcp
+zap                    ghcr.io/zaproxy/zaproxy:stable               "sleep infinity"         zap              35 seconds ago   Up 32 seconds (health: starting)   

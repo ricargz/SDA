@@ -1,0 +1,15 @@
+**/bin/
+**/obj/
+.artifacts/
+.git/
+.github/
+.vs/
+**/.sonarqube/
+VulnerableApp/Logs/
+VulnerableApp/evidencias/
+VulnerableApp/reportes/
+KanbanApp/
+Solucion01/
+segg-u1-p1/
+seq-infra/
+sonarqube-infra/

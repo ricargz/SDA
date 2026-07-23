@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Thu, 23 Jul 2026 21:13:58 GMT
+Server: Kestrel
+Transfer-Encoding: chunked
+X-Correlation-ID: 43716a6e58cf4e78b16f2180cd85e689
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+
