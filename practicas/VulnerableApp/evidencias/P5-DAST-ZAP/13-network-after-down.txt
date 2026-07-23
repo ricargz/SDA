@@ -1,0 +1,2 @@
+No networks matching practicas_pentest-net were found after running:
+docker compose -f pentest-compose.yml down --volumes --remove-orphans

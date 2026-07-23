@@ -1,0 +1,71 @@
+[
+    {
+        "Name": "practicas_pentest-net",
+        "Id": "f930c935ae6e0e413790890b01bb0bf51655aa181b9a70d0138e6e9a6d3183c1",
+        "Created": "2026-07-23T03:28:57.452455142Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.20.0.0/16",
+                    "Gateway": "172.20.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "2efd6492c8b3f8a24d84a80b866096b8012f5f2c1407169c8bbd71ed46d13125",
+            "com.docker.compose.network": "pentest-net",
+            "com.docker.compose.project": "practicas",
+            "com.docker.compose.version": "5.1.4"
+        },
+        "Containers": {
+            "31d78c7d5b44e829257d0bf85246d644de1953b84797b356abdb6b6e7bf37576": {
+                "Name": "zap",
+                "EndpointID": "9968f2613b0587eb02b6208bc1ca83417feeff012fdea802a50e706f368c2128",
+                "MacAddress": "72:58:59:57:4c:e0",
+                "IPv4Address": "172.20.0.4/16",
+                "IPv6Address": ""
+            },
+            "783114de833be0cb355dccb1f5b6d6dea669dd634413b3014a0f89aa971e4767": {
+                "Name": "vulnerable_app",
+                "EndpointID": "f748b3649e044469d7b621f0ae794601658522cfbc6189e8033009dcfca36476",
+                "MacAddress": "ee:85:a2:11:ea:ca",
+                "IPv4Address": "172.20.0.3/16",
+                "IPv6Address": ""
+            },
+            "96586c956d73b633f89bd17fd1cab4c80cb66b608a9ab6c0601accb91364567f": {
+                "Name": "vulnerable_sqlserver",
+                "EndpointID": "f6f0bfdbf0e07d0bdcd6d047bb053e388da78481da01e39fee382c6ddb26105d",
+                "MacAddress": "12:97:b7:9c:c2:04",
+                "IPv4Address": "172.20.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.20.0.0/16": {
+                        "IPsInUse": 6,
+                        "DynamicIPsAvailable": 65530
+                    }
+                }
+            }
+        }
+    }
+]

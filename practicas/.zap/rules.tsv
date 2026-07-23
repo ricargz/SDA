@@ -1,0 +1,9 @@
+# OWASP ZAP rules for the academic DAST pipeline.
+# Format: RULE_ID	ACTION	COMMENT
+# ACTIONS: IGNORE, WARN, FAIL
+10020	WARN	Missing Anti-clickjacking Header: documentado como remediacion recomendada para cabeceras de seguridad.
+10035	WARN	Strict-Transport-Security Header: aplica cuando la app se publica por HTTPS; en DAST local se escanea por HTTP interno.
+10038	WARN	Content Security Policy Header Not Set: se mantiene como advertencia para evaluar politica CSP especifica de la app.
+10021	WARN	X-Content-Type-Options Header Missing: debe corregirse con nosniff para evitar MIME sniffing.
+10010	WARN	Cookie No HttpOnly Flag: se reporta si ZAP detecta cookies sin HttpOnly.
+10011	WARN	Cookie Without Secure Flag: en entorno HTTP interno puede aparecer como advertencia; debe ser FAIL en staging HTTPS.
